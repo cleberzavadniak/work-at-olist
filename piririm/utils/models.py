@@ -15,3 +15,7 @@ class SystemBaseModel(TimestampedModelMixin):
 
     id = models.CharField(max_length=26, default=ulid_str_generator,
                           primary_key=True, editable=False)
+
+    def __repr__(self):
+        clsname = self.__class__.__name__
+        return f'<{clsname}: {self}>'
