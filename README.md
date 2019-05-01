@@ -4,7 +4,7 @@
 for sellers and marketplaces allowing them to sell their products across
 multiple channels.
 
-The Olist development team consists of developers who loves what they do. Our
+The Olist development team consists of developers who love what they do. Our
 agile development processes and our search for the best development practices
 provide a great environment for professionals who like to create quality
 software in good company.
@@ -15,9 +15,9 @@ with average professionals.
 
 This repository contains a problem used to evaluate the candidate skills.
 It's important to notice that satisfactorily solving the problem is just a
-part of what will be evaluated. We also consider other programming disciplines
-like documentation, testing, commit timeline, design and coding best
-practices.
+part of what is going to be evaluated. We also consider other programming
+disciplines like documentation, testing, commit timeline, design and coding
+best practices.
 
 Hints:
 
@@ -30,16 +30,16 @@ Hints:
 ## How to participate
 
 1. Make a fork of this repository on Github. If you can't create a
-   public fork of this project, make a private repository
-   (bitbucket offers free private repos) and add read permission for the
-   user [@tech-hiring](https://bitbucket.org/tech-hiring) on project;
+   public fork of this project, create a private repository
+   (bitbucket offers free private repos) and add read permission to the
+   [@tech-hiring](https://bitbucket.org/tech-hiring) user on project;
 2. Follow the instructions of README.md (this file);
 3. Deploy your project on a host service (we recommend
    [Heroku](https://heroku.com) or [gigalixir](https://www.gigalixir.com));
 4. Apply for the position at our [career page](https://www.99jobs.com/olist)
    with:
    * Link to the fork on Github (or bitbucket.org);
-   * Link to the project in a the deployed host service.
+   * Link to the project deployed in your chosen host service.
 
 
 ## Specification
@@ -47,19 +47,19 @@ Hints:
 You should implement an application that receives call detail records
 and calculates monthly bills for a given telephone number.
 
-There are a plenty of telecommunications platform technologies that will
+There is a plenty of telecommunications platform technologies that will
 consume this application. Some of them have weird behaviours when something
-goes wrong. That said it's not safe to believe in received data correctness,
-consistency nor expect some order in their requests. The application should
-have flexibility in receiving information to avoid record loss or inconsistency.
+goes wrong. That said, it's not safe to believe in received data correctness or
+consistency, neither to expect any order in their requests. The application should
+be flexible enough when receiving information to avoid record loss or inconsistencies.
 
 This application must provide a HTTP REST API to attend the
 requirements.
 
 
-### 1. Receive telephone call detail records
+### 1. Receive telephone call details records
 
-There are two call detailed record types: **Call Start Record** and **Call
+There are two call details record types: **Call Start Record** and **Call
 End Record**. To get all information of a telephone call you should use the
 records pair.
 
@@ -72,7 +72,7 @@ Call Start Record information:
   call;
 * **destination phone number**: The phone number receiving the call.
 
-The Call End Record has the same information excepting **origin** and
+The Call End Record has the same information except **origin** and
 **destination** fields.
 
 The phone number format is *AAXXXXXXXXX*, where *AA* is the area code and
@@ -84,12 +84,12 @@ while the phone number can be composed of 8 or 9 digits.
 
 1. Call Start Record
 
-```
+```javascript
 {
-  "id":  // Record unique identificator;
-  "type":  // Indicate if it's a call "start" or "end" record;
+  "id":  // Record unique identifier;
+  "type":  // Indicate whether it's a call "start" or "end" record;
   "timestamp":  // The timestamp of when the event occured;
-  "call_id":  // Unique for each call record pair;
+  "call_id":  // Unique identifier for each call record pair;
   "source":  // The subscriber phone number that originated the call;
   "destination":  // The phone number receiving the call.
 }
@@ -97,37 +97,37 @@ while the phone number can be composed of 8 or 9 digits.
 
 2. Call End Record
 
-```
+```javascript
 {
-   "id":  // Record unique identificator;
-   "type":  // Indicate if it's a call "start" or "end" record;
+   "id":  // Record unique identifier;
+   "type":  // Indicate whether it's a call "start" or "end" record;
    "timestamp":  // The timestamp of when the event occured;
-   "call_id":  // Unique for each call record pair.
+   "call_id":  // Unique identifier for each call record pair.
 }
 ```
 
 
 ### 2. Get telephone bill
 
-To get a telephone bill we need two information: the subscriber telephone
-number (required); the reference period (month/year) (optional). If the
-reference period is not informed the system will consider the last closed
-period. In other words it will get the previous month. It's only
+To get a telephone bill we need two informations: the subscriber telephone
+number (required) and the reference period (month/year) (optional). If the
+reference period is not informed the system must consider the last closed
+period (that is: it must retrieve the previous month bill). It's only
 possible to get a telephone bill after the reference period has ended.
 
-The telephone bill itself is composed by subscriber and period
-attributes and a list of all call records of the period. A call record
-belongs to the period in which the call has ended (eg. A call that
+The telephone bill itself is composed of subscriber and period
+attributes and a list of all call records for the period. A call record
+belongs to the period in which the call has ended (eg. a call that
 started on January 31st and finished in February 1st belongs to February
 period).
 
-Each telephone bill call record has the fields:
+Each telephone bill call record has the following fields:
 
 * destination
-* call start date
-* call start time
-* call duration (hour, minute and seconds): e.g. 0h35m42s
-* call price: e.g. R$ 3,96
+* start date
+* start time
+* duration (hour, minute and seconds): e.g. 0h35m42s
+* price: e.g. R$ 3,96
 
 
 ### 3. Pricing rules
@@ -135,13 +135,13 @@ Each telephone bill call record has the fields:
 The call price depends on fixed charges, call duration and the time of
 the day that the call was made. There are two tariff times:
 
-1. Standard time call - between 6h00 and 22h00 (excluding):
+1. Standard time call - between 6h00 and 21h59:
    * Standing charge: R$ 0,36 (fixed charges that are used to pay for the
      cost of the connection);
    * Call charge/minute: R$ 0,09 (there is no fractioned charge. The
-     charge applies to each completed 60 seconds cycle).
+     charge applies to each complete 60 seconds cycle).
 
-2. Reduced tariff time call - between 22h00 and 6h00 (excluding):
+2. Reduced tariff time call - between 22h00 and 5h59:
    * Standing charge: R$ 0,36
    * Call charge/minute: R$ 0,00 (hooray!)
 
@@ -176,11 +176,11 @@ The following phone calls have been made from the number 99 98852 6423 to 99 334
 
 ## Project Requirements:
 
-* Provide a working environment with your project (eg. Heroku, )
+* Provide a working environment for your project (Heroku, gigalixir, etc.)
 * Application must be written in Python, Elixir or Go.
 * Python
   * Use Python >= 3.5
-  * Choose any Python web framework you want to solve the problem
+  * Choose any Python web framework you want
   * Use PEP-8 for code style
   * [Python Coding Style](http://docs.python-guide.org/en/latest/writing/style/)
 * Elixir
