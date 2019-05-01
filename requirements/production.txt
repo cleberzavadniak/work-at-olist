@@ -1,0 +1,12 @@
+Django==2.2.1
+django-cors-headers==2.5.3
+dj-database-url==0.5.0
+prettyconf==2.0.1
+psycopg2-binary==2.8.2
+ulid-py==0.0.9
+whitenoise==4.1.2
+
+raven
+
+git+https://github.com/DroneMapp/powerlibs.git@0.0.3
+git+https://github.com/DroneMapp/powerlibs-django-restless.git@0.6.7

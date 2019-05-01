@@ -1,0 +1,7 @@
+-r production.txt
+factory-boy
+pytest
+pytest-cov
+pytest-django
+coverage
+flake8
