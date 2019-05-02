@@ -12,7 +12,10 @@ class ChargeEntry(SystemBaseModel):
     @property
     def duration(self):
         diff = self.end_record.timestamp - self.start_record.timestamp
-        return diff.seconds // 60
+        days = diff.days
+        seconds = diff.seconds
+        total_seconds = days * 86400 + seconds
+        return total_seconds // 60
 
     @property
     def has_reduced_tariff(self):
