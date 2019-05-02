@@ -1,4 +1,5 @@
-from pathlib import Path
+from datetime import time
+from decimal import Decimal
 
 from dj_database_url import parse as parse_db_url
 from prettyconf import config
@@ -20,8 +21,6 @@ DATABASES = {
 # always connected:
 DATABASES['default']['CONN_MAX_AGE'] = config("CONN_MAX_AGE", cast=config.eval, default="None")
 DATABASES['default']['TEST'] = {'NAME': config('TEST_DATABASE_NAME', default=None)}
-
-assert DATABASES['default']['TEST']['NAME'] != DATABASES['default']['NAME']
 
 # Security & Signup/Signin
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="*", cast=config.list)
@@ -68,7 +67,18 @@ CORS_ALLOW_HEADERS = default_headers + (
     'x-username', 'x-password',
 )
 
+# Setry:
 RAVEN_CONFIG = {
     'dsn': config('RAVEN_DSN', default=''),
     'release': '0',
 }
+
+# Tariffs:
+REDUCED_TARIFF_PERIODS = (
+    (time(0, 0, 0), time(5, 59, 59)),
+    (time(22, 0, 0), time(23, 59, 59)),
+)
+
+STANDING_CHARGE = Decimal('0.36')
+PER_MINUTE_CHARGE = Decimal('0.09')
+REDUCED_PER_MINUTE_CHARGE = Decimal('0.00')

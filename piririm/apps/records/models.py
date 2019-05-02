@@ -2,6 +2,8 @@ from django.db import models
 
 from utils.models import SystemBaseModel
 
+from apps.bills.models import ChargeEntry
+
 
 class BaseCallRecord(SystemBaseModel):
     class Meta:
@@ -19,8 +21,27 @@ class CallStartRecord(BaseCallRecord, models.Model):
         timestamp = self.timestamp.strftime('%Y-%m-%d %H:%M:%S')
         return f'#{self.call_id}, {self.source}->{self.destination}, at {timestamp}'
 
+    def charge(self):
+        if not CallEndRecord.objects.filter(call_id=self.call_id).exists():
+            return
+
+        end = CallEndRecord.objects.filter(call_id=self.call_id).last()
+        return end.charge()
+
 
 class CallEndRecord(BaseCallRecord, models.Model):
     def __str__(self):
         timestamp = self.timestamp.strftime('%Y-%m-%d %H:%M:%S')
         return f'#{self.call_id} at {timestamp}'
+
+    def charge(self):
+        if not CallStartRecord.objects.filter(call_id=self.call_id).exists():
+            return
+
+        start = CallStartRecord.objects.get(call_id=self.call_id)
+        charge_entry, _ = ChargeEntry.objects.get_or_create(
+            start_record=start,
+            end_record=self
+        )
+
+        return charge_entry

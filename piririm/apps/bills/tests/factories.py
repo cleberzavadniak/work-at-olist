@@ -1,5 +1,3 @@
-import datetime
-
 import factory
 
 from apps.bills.models import ChargeEntry
