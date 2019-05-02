@@ -1,8 +1,11 @@
-# from django.conf.urls import url
+from django.conf.urls import url
 
-# from . import views
+from . import views
+
 
 urlpatterns = [  # pragma: no cover
-    # url(r'^$', views.<VIEWCLASS>.as_view(), name='records-list'),
-    # url(r'^(?P<pk>\w{26})$', api.<VIEWCLASS>.as_view(), name='records-detail'),
+    url(r'^start/$', views.CallStartRecordListEndpoint.as_view(), name='call-start-records-list'),
+    url(r'^start/(?P<pk>\w{26})$', views.CallStartRecordDetailEndpoint.as_view(), name='call-start-records-detail'),
+    url(r'^end/$', views.CallEndRecordListEndpoint.as_view(), name='call-end-records-list'),
+    url(r'^end/(?P<pk>\w{26})$', views.CallEndRecordDetailEndpoint.as_view(), name='call-end-records-detail'),
 ]

@@ -15,4 +15,4 @@ class CommonListEndpoint(BaseEndpointMixin,
 
 class CommonDetailEndpoint(BaseEndpointMixin,
                            DetailEndpoint):
-    methods = ['GET', 'POST']
+    methods = ['GET']

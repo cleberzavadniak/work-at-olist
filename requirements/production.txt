@@ -11,3 +11,4 @@ raven
 git+https://github.com/DroneMapp/powerlibs.git@0.0.3
 git+https://github.com/DroneMapp/powerlibs-django-contrib.git@0.1.6
 git+https://github.com/DroneMapp/powerlibs-django-restless.git@0.6.7
+git+https://github.com/DroneMapp/powerlibs-django-restless-contrib.git@0.29.5
