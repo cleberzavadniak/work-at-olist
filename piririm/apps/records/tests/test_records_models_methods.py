@@ -1,5 +1,7 @@
 import pytest
 
+from django.conf import settings
+
 
 pytestmark = pytest.mark.django_db
 
@@ -7,7 +9,7 @@ pytestmark = pytest.mark.django_db
 def test_call_start_record_str(call_start_record):
     assert str(call_start_record.call_id) in str(call_start_record)
 
-    timestamp = call_start_record.timestamp.strftime('%Y-%m-%d %H:%M:%S')
+    timestamp = call_start_record.timestamp.strftime(settings.DATE_FORMAT)
     assert timestamp in str(call_start_record)
 
 
@@ -39,7 +41,7 @@ def test_call_start_record_charge_already_charged(call_start_record,
 def test_call_end_record_str(call_end_record):
     assert str(call_end_record.call_id) in str(call_end_record)
 
-    timestamp = call_end_record.timestamp.strftime('%Y-%m-%d %H:%M:%S')
+    timestamp = call_end_record.timestamp.strftime(settings.DATE_FORMAT)
     assert timestamp in str(call_end_record)
 
 

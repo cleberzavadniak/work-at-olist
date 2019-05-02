@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 from utils.models import SystemBaseModel
 
@@ -18,7 +19,7 @@ class CallStartRecord(BaseCallRecord, models.Model):
     destination = models.CharField(max_length=11)
 
     def __str__(self):
-        timestamp = self.timestamp.strftime('%Y-%m-%d %H:%M:%S')
+        timestamp = self.timestamp.strftime(settings.DATE_FORMAT)
         return f'#{self.call_id}, {self.source}->{self.destination}, at {timestamp}'
 
     def charge(self):
@@ -31,7 +32,7 @@ class CallStartRecord(BaseCallRecord, models.Model):
 
 class CallEndRecord(BaseCallRecord, models.Model):
     def __str__(self):
-        timestamp = self.timestamp.strftime('%Y-%m-%d %H:%M:%S')
+        timestamp = self.timestamp.strftime(settings.DATE_FORMAT)
         return f'#{self.call_id} at {timestamp}'
 
     def charge(self):
