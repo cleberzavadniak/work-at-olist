@@ -1,0 +1,4 @@
+DEBUG=True
+LOG_LEVEL=DEBUG
+SECRET_KEY=randomstringhere
+DATABASE_URL=postgres://USER:PASSWORD@localhost:5432/DATABASE_NAME
