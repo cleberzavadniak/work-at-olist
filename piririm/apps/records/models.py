@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 from django.conf import settings
 
@@ -19,7 +21,11 @@ class CallStartRecord(BaseCallRecord, models.Model):
     destination = models.CharField(max_length=11)
 
     def __str__(self):
-        timestamp = self.timestamp.strftime(settings.DATE_FORMAT)
+        if isinstance(self.timestamp, datetime.datetime):
+            timestamp = self.timestamp.strftime(settings.DATE_FORMAT)
+        else:
+            timestamp = self.timestamp
+
         return f'#{self.call_id}, {self.source}->{self.destination}, at {timestamp}'
 
     def charge(self):
